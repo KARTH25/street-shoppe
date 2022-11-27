@@ -1,0 +1,8 @@
+.street_shoppe_categories_sm{
+    min-width: 100%;
+    max-width: 100%;
+    overflow: scroll;
+}
+.street_shoppe_categories_sm::-webkit-scrollbar{
+    display: none;
+}

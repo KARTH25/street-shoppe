@@ -1,0 +1,10 @@
+.street_shoppe_deal_card{
+    min-height: 300px;
+    max-height: 300px;
+    background: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
+}
+.street_shoppee_deals{
+    min-width: inherit;
+    max-width: inherit;
+    overflow: scroll;
+}

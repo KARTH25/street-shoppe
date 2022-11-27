@@ -1,0 +1,13 @@
+.street_shoppe_view_lg{
+   min-height: calc(100vh - 5rem);
+   max-height: calc(100vh - 5rem);
+   overflow: scroll;
+}
+.street_shoppe_view_sm{
+  min-height: calc(100vh - 10rem);
+  max-height: calc(100vh - 10rem);
+  overflow: scroll;
+}
+.street_shoppe_view_sm::-webkit-scrollbar,.street_shoppe_view_lg::-webkit-scrollbar{
+  display: none;
+}
