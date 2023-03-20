@@ -15,8 +15,9 @@ function Deals(){
 
     // Deals
     const deals = [
-        { 'id' : 1, 'productName' : 'Peanut Candy', 'price' : '100.00', 'quantity' : '100g', 'image' : peanutCandy, },
+        { 'id' : 1, 'productName' : 'Peanut Candy', 'price' : '100.00', 'quantity' : '100g', 'image' : 'https://firebasestorage.googleapis.com/v0/b/street-shoppe.appspot.com/o/images%2F0ec3ywkxbpis?alt=media&token=afcddcc9-80be-4fd0-96f0-42275dac308e', },
         { 'id' : 2, 'productName' : 'Macroons', 'price' : '100.00', 'quantity' : '100g', 'image' : macroonLogo },
+        { 'id' : 3, 'productName' : 'Health Mix', 'price' : '100.00', 'quantity' : '100g', 'image' : healthMix},
         { 'id' : 3, 'productName' : 'Health Mix', 'price' : '100.00', 'quantity' : '100g', 'image' : healthMix}
     ]
 
@@ -36,7 +37,7 @@ function Deals(){
 
                         { /* Iterating Deals list */}
                         <div className={`row ${(deviceType === 'lg')? '' : 'street_shoppee_deals'}`}>
-                            <div className={`${(deviceType === 'lg')? 'd-flex' : 'd-flex'}`}>
+                            <div className={`${(deviceType === 'lg')? 'd-flex' : 'd-flex'}`} style={{"overflow" : "scroll"}}>
                                 {
                                     deals.map((deal, index) => (
                                         <ProductCard key={index} products={deal} /> 

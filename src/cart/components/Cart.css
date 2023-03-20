@@ -1,0 +1,15 @@
+.street_shoppe_cart_content_lg{
+    min-height: calc(100vh - 17em);
+    max-height: calc(100vh - 17em);
+    overflow: scroll;
+}
+
+.street_shoppe_cart_content_sm{
+    min-height: calc(100vh - 20em);
+    max-height: calc(100vh - 20em);
+    overflow: scroll;
+}
+
+.street_shoppe_cart_content_lg::-webkit-scrollbar,.street_shoppe_cart_content_sm::-webkit-scrollbar{
+    display: none;
+}
