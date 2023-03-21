@@ -8,43 +8,43 @@ import { useSelector } from "react-redux";
 import { productGridConstants } from "../../constants/ProductGridConstants";
 import UiGrid from "../../../grid/components/Grid";
 import Swal from 'sweetalert2';
-import './Product.css';
+import './Inventory.css';
 import $ from 'jquery';
 
-function Product(){
+function Inventory() {
 
     // dispatch constant
     const dispatch = useDispatch();
 
     // Form validator initial values
-    const formValidators = { 
-        productName : { type : '', validator : (value) => { return value !== " " && value.length > 0 }, errorMessage : 'Name cannot be empty' }, 
-        quantity : { type : '', validator : (value) => { return (value !== " " && value.length > 0) }, errorMessage : 'Quantity cannot be empty' }, 
-        price : { type : '', validator : (value) => { return (value !== "", value > 0) }, errorMessage : 'Price cannot be empty' }, 
-        tag : { type : '', validator : (value) => { return (value !== "", value.length > 0)}, errorMessage : 'Please select categories' }, 
-        image : { type : '', validator : (value) => { return (value !== "", value.length > 0)}, errorMessage : 'Please select product image' } 
+    const formValidators = {
+        productName: { type: '', validator: (value) => { return value !== " " && value.length > 0 }, errorMessage: 'Name cannot be empty' },
+        quantity: { type: '', validator: (value) => { return (value !== " " && value.length > 0) }, errorMessage: 'Quantity cannot be empty' },
+        price: { type: '', validator: (value) => { return (value !== "", value > 0) }, errorMessage: 'Price cannot be empty' },
+        tag: { type: '', validator: (value) => { return (value !== "", value.length > 0) }, errorMessage: 'Please select categories' },
+        image: { type: '', validator: (value) => { return (value !== "", value.length > 0) }, errorMessage: 'Please select product image' }
     }
 
     // State related vars
 
     // State to hold productList data for grid
-    const [productList, setProductList] = useState([]); 
+    const [productList, setProductList] = useState([]);
     // state to initialize form validators
-    const [formValidator, setFormValidator] = useState(formValidators); 
+    const [formValidator, setFormValidator] = useState(formValidators);
     // state to get and set selected rows initialized with null
-    const [selectedRows, setSelectedRows] = useState(null); 
+    const [selectedRows, setSelectedRows] = useState(null);
     // state to get and set the progress bar related configs on uploading image
-    const [progressBarConfigs, setProgressBarConfigs] = useState({ showProgressBar : false, progress : 0 }); 
+    const [progressBarConfigs, setProgressBarConfigs] = useState({ showProgressBar: false, progress: 0 });
     // state to get and set image name after uploading to storage
     const [imageName, setImageName] = useState('');
     // state to get and set action type
     const [actionType, setActionType] = useState('Add');
     // state to clear all selected Rows
     const [clearAllRows, setClearAllRows] = useState(false);
-    
+
     // ref to get and set form data
-    const formDataRef = useRef({ productName : '', quantity : '', price : ''});
-    
+    const formDataRef = useRef({ productName: '', quantity: '', price: '' });
+
     // Selector to get product categories that were stored initially on load
     const productCategories = useSelector(state => state.uiConfigs.uiConfigs.categories);
 
@@ -61,58 +61,58 @@ function Product(){
         const validation = formValidator;
 
         let formattedValue;
-        
+
         // If type is Add and field value is tag using jquery to fetch the selected product categories value for validating the field
-        if(actionType === 'Add' && field === 'tag'){
+        if (actionType === 'Add' && field === 'tag') {
             formattedValue = [];
-            $('input[name="productCategories"]:checked').each(function() {
+            $('input[name="productCategories"]:checked').each(function () {
                 formattedValue.push(this.value);
             });
         }
         // Else for other fields setting the value set using Ref
-        else{
+        else {
             formattedValue = value;
         }
 
         // based on the field name validating the value using corresponding field validator function and set success or error based on validator function return value
-        validation[field] = (validation[field].validator(formattedValue)? { ...validation[field], type : 'success' } : { ...validation[field], type : 'error' });
+        validation[field] = (validation[field].validator(formattedValue) ? { ...validation[field], type: 'success' } : { ...validation[field], type: 'error' });
 
         // setting the updated field validation
-        setFormValidator({...validation});
+        setFormValidator({ ...validation });
     }
 
     // Method to set validation type 
-    const setValidationType = (type, all=false) => {
+    const setValidationType = (type, all = false) => {
         let validation = {};
 
         Object.keys(formValidator).forEach(field => {
-            if(all === false){
-                (formValidator[field].type === '')?  validation[field] = { ...formValidator[field], type: type } : validation[field] = { ...formValidator[field] }
+            if (all === false) {
+                (formValidator[field].type === '') ? validation[field] = { ...formValidator[field], type: type } : validation[field] = { ...formValidator[field] }
             }
-            else if(all === true){
+            else if (all === true) {
                 validation[field] = { ...formValidator[field], type: type };
-            }    
+            }
         })
 
-        setFormValidator({...validation});
+        setFormValidator({ ...validation });
     }
 
     // Method to open modal on Add and Edit operations
     const openModal = (type) => {
         // Performing reset on pre modal open
-        resetFormValues(type,'pre');
-        
+        resetFormValues(type, 'pre');
+
         // Field to initialized with value during modal open
-        const fields = ['productName','quantity','price'];
+        const fields = ['productName', 'quantity', 'price'];
         // Field to be set with initial validations during modal open
-        const validationFields = ['productName','quantity','price','image','tag'];
+        const validationFields = ['productName', 'quantity', 'price', 'image', 'tag'];
 
         // If type is add setting all the fields with empty value during modal open
-        if(type === 'Add'){
+        if (type === 'Add') {
             fields.forEach((field) => formDataRef.current[field].value = "");
         }
         // If type is edit setting all the field with the corresponding attribute value of selected rows
-        else if(type === 'Edit'){
+        else if (type === 'Edit') {
             fields.forEach((field) => formDataRef.current[field].value = selectedRows[field]);
 
             // setting initial validation over field during pre filled modal opened with edit
@@ -131,25 +131,25 @@ function Product(){
     // Method to reset form Values during Add and Edit opertaions during pre and post modal open
     const resetFormValues = (actionType, state) => {
         // On pre modal open
-        if(state === 'pre'){
+        if (state === 'pre') {
             // setting action type
             setActionType(actionType);
             // initializing progress with initial values
-            setProgressBarConfigs({ showProgressBar : false, progress : 0 });
+            setProgressBarConfigs({ showProgressBar: false, progress: 0 });
             // setting formValidators validators to initial values using setValidationType method
             setValidationType('', true);
         }
         // On post modal open
-        else if(state === 'post'){
+        else if (state === 'post') {
             //By default for add and edit clearing if any previous selected values is present
-            $.each(productCategories, function(i, val){
+            $.each(productCategories, function (i, val) {
                 $("input[value='" + val + "']").prop('checked', false);
             });
 
             // If actionType is Edit setting the values to be checked based on the tags in selected row
-            if(actionType === 'Edit'){
-                $.each(selectedRows['tag'], function(i, val){
-                    $("input[value='" + val + "']").prop('checked',true);
+            if (actionType === 'Edit') {
+                $.each(selectedRows['tag'], function (i, val) {
+                    $("input[value='" + val + "']").prop('checked', true);
                 });
 
                 // setting image name if action type is edit from selected rows value
@@ -169,7 +169,7 @@ function Product(){
         let categories = [];
 
         // Validating if any error in fields
-        if(!(Object.keys(formValidator).map((val) => formValidator[val].type).every((val) => val === "success" ))){
+        if (!(Object.keys(formValidator).map((val) => formValidator[val].type).every((val) => val === "success"))) {
             setValidationType('error')
             return
         }
@@ -180,7 +180,7 @@ function Product(){
         })
 
         // Getting selected categories
-        $('input[name="productCategories"]:checked').each(function() {
+        $('input[name="productCategories"]:checked').each(function () {
             categories.push(this.value);
         });
 
@@ -192,19 +192,19 @@ function Product(){
         value['updatedBy'] = "Karthick";
         // Assigning sellername
         value['sellerName'] = "Street Shoppe";
-        
+
         // Closing modal after getting all infromation
         document.getElementById('modalButton').click();
         // Assiging url based on actionType
-        let url = ((actionType === 'Add')? '/api/data/streetshoppe/products.json' : `/api/data/streetshoppe/products/${selectedRows['id']}.json`);
+        let url = ((actionType === 'Add') ? '/api/data/streetshoppe/products.json' : `/api/data/streetshoppe/products/${selectedRows['id']}.json`);
         // Assiging baseApiCallService Method based on actionType
-        let method = ((actionType === 'Add')? baseApiCallService.post(url, value) : baseApiCallService.put(url, value))
+        let method = ((actionType === 'Add') ? baseApiCallService.post(url, value) : baseApiCallService.put(url, value))
 
         // Calling API
         method.then(res => {
-            if(res.status === 200 && res.data){
+            if (res.status === 200 && res.data) {
                 // displaying alert based on actionType
-                dispatch(notifierSliceActions.alertInfo({ alertInfo : {showAlert : true, message : `Product ${actionType.toLowerCase()}ed successfully !`, type : 'success'} }));
+                dispatch(notifierSliceActions.alertInfo({ alertInfo: { showAlert: true, message: `Product ${actionType.toLowerCase()}ed successfully !`, type: 'success' } }));
                 //Clearing all selected Rows
                 setClearAllRows(true);
                 // Fetching the updated product list
@@ -214,23 +214,23 @@ function Product(){
     }
 
     // Method to delete product
-    const deleteProduct = () => { 
-        
+    const deleteProduct = () => {
+
         Swal.fire({
-            title : 'Confirmation',
-            text : 'Please confirm removing this product',
-            showConfirmButton : true,
-            showCancelButton : true,
-            confirmButtonText : 'Remove',
-            cancelButtonColor : 'Cancel',
-            confirmButtonColor : 'black',
+            title: 'Confirmation',
+            text: 'Please confirm removing this product',
+            showConfirmButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Remove',
+            cancelButtonColor: 'Cancel',
+            confirmButtonColor: 'black',
         }).then((confirm) => {
-            if(confirm.isConfirmed){
+            if (confirm.isConfirmed) {
                 // Calling API to delete product
                 baseApiCallService.delete(`/api/data/streetshoppe/products/${selectedRows['id']}.json`).then(res => {
-                    if(res.status === 200){
+                    if (res.status === 200) {
                         // displaying alert based on actionType
-                        dispatch(notifierSliceActions.alertInfo({ alertInfo : {showAlert : true, message : `Product deleted successfully !`, type : 'success'} }));
+                        dispatch(notifierSliceActions.alertInfo({ alertInfo: { showAlert: true, message: `Product deleted successfully !`, type: 'success' } }));
                         // Clearing all rows
                         setClearAllRows(true);
                         // Fetching the updated product list
@@ -245,43 +245,56 @@ function Product(){
 
         let validation = formValidator;
 
-        validation['image'] = { ...formValidator['image'], type : 'success' };
+        validation['image'] = { ...formValidator['image'], type: 'success' };
 
         setFormValidator({ ...validation });
 
-        setProgressBarConfigs({ showProgressBar : true, progress : 10 });
+        setProgressBarConfigs({ showProgressBar: true, progress: 10 });
 
         const storageRef = ref(Storage, `/files/${formDataRef.current.productName.value}`);
 
         const uploadTask = uploadBytesResumable(storageRef, event.target.files[0]);
 
-        uploadTask.on("state_changed",(snapshot) => {
+        uploadTask.on("state_changed", (snapshot) => {
 
             const percent = Math.round(
                 (snapshot.bytesTransferred / snapshot.totalBytes) * 100
             );
-                // update progress
-                setProgressBarConfigs({ showProgressBar : true, progress : percent });
-            },
+            // update progress
+            setProgressBarConfigs({ showProgressBar: true, progress: percent });
+        },
             (err) => console.log(err),
             () => {
                 // download url
                 getDownloadURL(uploadTask.snapshot.ref).then((url) => {
                     setImageName(url);
-                    setProgressBarConfigs({ showProgressBar : false, progress : 100 });
+                    setProgressBarConfigs({ showProgressBar: false, progress: 100 });
                 });
             }
         );
     }
 
+    const enableOrDisablePod = (type) => {
+        baseApiCallService.patch(`/api/data/streetshoppe/products/${selectedRows?.['id']}.json`,{ pod : (type == true)? 'true' : 'false' }).then(res => {
+            if(res.status == 200){
+                // displaying alert based on actionType
+                dispatch(notifierSliceActions.alertInfo({ alertInfo: { showAlert: true, message: `Product ${(type == true)? 'added' : 'removed'}  as POD successfully !`, type: 'success' } }));
+                // Clearing all rows
+                setClearAllRows(true);
+                // Fetching the updated product list
+                getProductList();
+            }
+        })
+    }
+
     const getProductList = () => {
         baseApiCallService.get('/api/data/streetshoppe/products.json').then(res => {
-            if(res.status === 200 && res.data){
+            if (res.status === 200 && res.data) {
                 let products = [];
                 Object.keys(res.data).forEach((key) => {
-                   let formattedData = res.data[key];
-                   formattedData['id'] = key;
-                   products.push(formattedData);  
+                    let formattedData = res.data[key];
+                    formattedData['id'] = key;
+                    products.push(formattedData);
                 })
 
                 setProductList([...products])
@@ -291,14 +304,14 @@ function Product(){
 
     useEffect(() => {
         getProductList();
-    },[]);
+    }, []);
 
 
 
     return (
-        <div className="container-fluid street_shoppe_bg">
+        <div className="container-fluid">
 
-            <button type="button" id="modalButton" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
+            <button type="button" id="modalButton" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
 
             <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered">
@@ -311,8 +324,8 @@ function Product(){
                             <form action="">
                                 <div className="form-group">
                                     <label htmlFor="productName" className="form-label" id="productName">Name</label>
-                                    <input type="text" className="form-control" name="productName" placeholder="Enter Product Name" onKeyUp={() => formValidationHandler('productName',formDataRef.current['productName'].value)} ref = {ref => formDataRef.current.productName = ref}/>
-                                    { (formValidator['productName']['type'] === 'error') && (<div className="mt-2 text-danger">{formValidator['productName']['errorMessage']}</div>) } 
+                                    <input type="text" className="form-control" name="productName" placeholder="Enter Product Name" onKeyUp={() => formValidationHandler('productName', formDataRef.current['productName'].value)} ref={ref => formDataRef.current.productName = ref} />
+                                    {(formValidator['productName']['type'] === 'error') && (<div className="mt-2 text-danger">{formValidator['productName']['errorMessage']}</div>)}
                                 </div>
 
                                 <div className="mt-3">
@@ -320,30 +333,30 @@ function Product(){
                                     {
                                         productCategories.map((categories) => (
                                             <div class="form-check" key={categories}>
-                                                <input type="checkbox" class="form-check-input" id="productCategories" name="productCategories" value={categories} onChange={() => formValidationHandler('tag','')}/>
+                                                <input type="checkbox" class="form-check-input" id="productCategories" name="productCategories" value={categories} onChange={() => formValidationHandler('tag', '')} />
                                                 <label className="form-check-label" htmlFor="productCategories" name="productCategories">{categories}</label>
                                             </div>
                                         ))
                                     }
-                                    { (formValidator['tag']['type'] === 'error') && (<div className="mt-2 text-danger">{formValidator['tag']['errorMessage']}</div>) }
+                                    {(formValidator['tag']['type'] === 'error') && (<div className="mt-2 text-danger">{formValidator['tag']['errorMessage']}</div>)}
                                 </div>
-                                
+
 
                                 <div className="form-group mt-3">
                                     <label htmlFor="productPrice" className="form-label" id="productPrice">Price</label>
-                                    <input type="text" className="form-control" name="productPrice" placeholder="Enter Product Price" onKeyUp={() => formValidationHandler('price',formDataRef.current['price'].value)} ref = {ref => formDataRef.current.price = ref}/>
-                                    { (formValidator['price']['type'] === 'error') && (<div className="mt-2 text-danger">{formValidator['price']['errorMessage']}</div>) }
+                                    <input type="text" className="form-control" name="productPrice" placeholder="Enter Product Price" onKeyUp={() => formValidationHandler('price', formDataRef.current['price'].value)} ref={ref => formDataRef.current.price = ref} />
+                                    {(formValidator['price']['type'] === 'error') && (<div className="mt-2 text-danger">{formValidator['price']['errorMessage']}</div>)}
                                 </div>
 
                                 <div className="form-group mt-3">
                                     <label htmlFor="productQuantity" className="form-label" id="productQuantity">Quantity</label>
-                                    <input type="text" className="form-control" name="productQuantity" placeholder="Enter Product Quantity" onKeyUp={() => formValidationHandler('quantity',formDataRef.current['quantity'].value)} ref = {ref => formDataRef.current.quantity = ref}/>
-                                    { (formValidator['quantity']['type'] === 'error') && (<div className="mt-2 text-danger">{formValidator['quantity']['errorMessage']}</div>) }
+                                    <input type="text" className="form-control" name="productQuantity" placeholder="Enter Product Quantity" onKeyUp={() => formValidationHandler('quantity', formDataRef.current['quantity'].value)} ref={ref => formDataRef.current.quantity = ref} />
+                                    {(formValidator['quantity']['type'] === 'error') && (<div className="mt-2 text-danger">{formValidator['quantity']['errorMessage']}</div>)}
                                 </div>
 
                                 <div className="form-group mt-3">
                                     <label htmlFor="productImage" className="form-label" id="productImage">Image</label>
-                                    <input type="file" className="form-control" name="productImage" id="image-field" placeholder="Upload Product Image" onChange={fileUploadHandler} defaultValue={imageName}/>
+                                    <input type="file" className="form-control" name="productImage" id="image-field" placeholder="Upload Product Image" onChange={fileUploadHandler} defaultValue={imageName} />
                                     {
                                         (progressBarConfigs.showProgressBar === true) && (
                                             <div className="progress m-2">
@@ -351,7 +364,7 @@ function Product(){
                                             </div>
                                         )
                                     }
-                                    { (formValidator['image']['type'] === 'error') && (<div className="mt-2 text-danger">{formValidator['image']['errorMessage']}</div>) }
+                                    {(formValidator['image']['type'] === 'error') && (<div className="mt-2 text-danger">{formValidator['image']['errorMessage']}</div>)}
                                 </div>
                             </form>
                         </div>
@@ -369,6 +382,9 @@ function Product(){
                         <button className="btn btn-md btn-success m-1" onClick={() => openModal('Add')}>Add</button>
                         <button className="btn btn-md btn-warning m-1" onClick={() => openModal('Edit')} disabled={selectedRows === null}>Edit</button>
                         <button className="btn btn-md btn-danger m-1" onClick={deleteProduct} disabled={selectedRows === null}>Delete</button>
+
+                        <button className="btn btn-md btn-dark m-1" disabled={selectedRows === null || selectedRows.pod == 'true'} onClick={() =>  enableOrDisablePod(true)}>Enable POD</button>
+                        <button className="btn btn-md btn-dark m-1" disabled={selectedRows === null || selectedRows.pod == undefined || selectedRows.pod == 'false'} onClick={() => enableOrDisablePod(false)}>Remove POD</button>
                     </div>
                 </div>
             </div>
@@ -381,4 +397,4 @@ function Product(){
     )
 }
 
-export default Product;
+export default Inventory;

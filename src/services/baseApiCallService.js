@@ -10,6 +10,9 @@ export const baseApiCallService = {
     put : (url, requestBody) => {
         return axios.put(url,requestBody,{ params : { auth : "" } });
     },
+    patch : (url, requestBody) => {
+        return axios.patch(url,requestBody,{ params : { auth : "" } });
+    },
     delete : (url) => {
         return axios.delete(url,{ params : { auth : "" } });
     }

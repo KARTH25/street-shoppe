@@ -4,12 +4,11 @@ import Navbar from './navbar/components/Navbar';
 import Home from './home/components/Home';
 import Offcanvas from "./off-canvas/components/Offcanvas";
 import Checkout from './checkout/components/Checkout';
-import Status from './status/components/Status';
 import './App.css';
 import DeviceInfo from "./services/DeviceInfo";
 import Footer from "./footer/Footer";
 import ToastAlert from "./toast-alert/components/ToastAlert";
-import Product from "./admin/components/products-component/Product";
+import AdminWrapper from "./admin/components/admin-wrapper-component/AdminWrapper";
 
 function App() {
 
@@ -27,7 +26,7 @@ function App() {
           <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/checkout' element={<Checkout />} />
-              <Route path='/admin' element={<Product />} />
+              <Route path='/admin' element={<AdminWrapper />} />
           </Routes>
           <Footer/>
          </div>

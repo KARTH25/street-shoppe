@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
+import parse from 'html-react-parser';
 import $ from 'jquery';
 
 function UiGrid(props){
+
+    console.log(props)
 
     const getSelectedRows = (e,rows) => {
         // if checkbox is selected setting the row data
@@ -50,7 +53,11 @@ function UiGrid(props){
                                     </td>
                                     {
                                         props.gridMetaData.map((col) => (
-                                            <td key={col.id}>{product[col.id]}</td>
+                                            <td key={col.id}>
+                                            {
+                                                ((col.cellRenderer != undefined)?  parse(col.cellRenderer(product[col.id])) : product[col.id])
+                                            }
+                                            </td>
                                         ))
                                     }
                                 </tr>

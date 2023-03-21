@@ -1,9 +1,8 @@
-import './Deals.css';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import DeviceInfo from '../../services/DeviceInfo';
 import ProductCard from '../../product-card/components/ProductCard';
-import  macroonLogo from '../../assets/macroons.svg';
-import peanutCandy from '../../assets/peanutcandy.svg';
-import healthMix from '../../assets/healthmix.svg';
+import './Deals.css';
 
 /**
  * Compatiblility : Both Mobile and Web
@@ -14,12 +13,17 @@ function Deals(){
     const deviceType = DeviceInfo();
 
     // Deals
-    const deals = [
-        { 'id' : 1, 'productName' : 'Peanut Candy', 'price' : '100.00', 'quantity' : '100g', 'image' : 'https://firebasestorage.googleapis.com/v0/b/street-shoppe.appspot.com/o/images%2F0ec3ywkxbpis?alt=media&token=afcddcc9-80be-4fd0-96f0-42275dac308e', },
-        { 'id' : 2, 'productName' : 'Macroons', 'price' : '100.00', 'quantity' : '100g', 'image' : macroonLogo },
-        { 'id' : 3, 'productName' : 'Health Mix', 'price' : '100.00', 'quantity' : '100g', 'image' : healthMix},
-        { 'id' : 3, 'productName' : 'Health Mix', 'price' : '100.00', 'quantity' : '100g', 'image' : healthMix}
-    ]
+    const dealsList = useSelector(state => state.uiConfigs.uiConfigs.products);
+
+    const deals = [];
+
+    if(Object.keys(dealsList).length > 0){
+        Object.keys(dealsList).forEach((key) => {
+            if(dealsList[key]['pod'] != undefined && dealsList[key]['pod'] == 'true'){
+                deals.push({ id : key, ...dealsList[key] });
+            } 
+        })
+    }
 
     return(
         <div>
