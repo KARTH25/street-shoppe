@@ -13,7 +13,7 @@ function Deals(){
     const deviceType = DeviceInfo();
 
     // Deals
-    const dealsList = useSelector(state => state.uiConfigs.uiConfigs.products);
+    const dealsList = useSelector(state => state.uiConfigs.uiConfigs.products) || {};
 
     const deals = [];
 

@@ -5,7 +5,9 @@ const userDataSlice = createSlice({
     initialState : { 
         userInfo : [],
         productsInCart : [],
-        orders : []
+        orders : {},
+        checkout : [],
+        streekInfo : {}
     },
     reducers : {
         updateUserInfo(state, actions) {
@@ -17,6 +19,12 @@ const userDataSlice = createSlice({
         updateOrders(state, actions){
             state.orders = actions.payload.orders;
         },
+        checkoutSlice(state, actions){
+            state.checkout = actions.payload.checkout;
+        },
+        updateStreekInfo(state, actions){
+            state.streekInfo = actions.payload.streekInfo;
+        }
     }
 })
 

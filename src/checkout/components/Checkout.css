@@ -3,3 +3,22 @@
     height: 650px;
     margin-left: -400px;
 }
+
+.street_shoppe_ordered_content{
+    min-height: calc(100vh - 8.5em);
+    max-height: calc(100vh - 8.5em);
+    overflow: scroll;
+}
+
+.street_shoppe_ordered_content::-webkit-scrollbar{
+    display: none;
+}
+
+.street_shoppe_cart_link_text{
+    text-decoration: none;
+    color: white;
+}
+
+.street_shoppe_cart_link_text:hover{
+    color: white;
+}

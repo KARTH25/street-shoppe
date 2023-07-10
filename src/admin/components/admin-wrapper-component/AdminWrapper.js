@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Inventory from "../inventory-component/Inventory";
+import Orders from "../orders-component/Orders";
 import './AdminWrapper.css';
 
 function AdminWrapper(){
@@ -26,6 +27,9 @@ function AdminWrapper(){
             <div className="row">
                 {
                     (currentTab == 'Inventory') && (<Inventory />)
+                }
+                {
+                    (currentTab == 'Orders') && (<Orders />)
                 }
             </div>
         </div>

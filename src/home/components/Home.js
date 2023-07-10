@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Deals from "../../deals/components/Deals"
 import ProductList from "../../product-list/components/ProductList"
 import { userDataSliceActions } from "../../store/userDataSlice";
@@ -9,12 +9,21 @@ import { baseApiCallService } from "../../services/baseApiCallService";
 function Home(){
 
     const dispatch = useDispatch();
+
+    const orders = useSelector(state => state.user.orders) || [];
  
     useEffect(() => {
 
       baseApiCallService.get('/api/data/user/karthick/cart.json').then(res => {
         if(res.status === 200 && res.data){
             dispatch(userDataSliceActions.updateProductsInCart({ productsInCart : res.data }));
+        }
+      });
+
+      baseApiCallService.get('/api/data/orders/karthick.json').then(res => {
+        if(res.status == 200 && res.data){
+          dispatch(userDataSliceActions.updateStreekInfo({ streekInfo : res.data }));
+          dispatch(userDataSliceActions.updateOrders({ orders : res.data['orders'] }));
         }
       })
 
