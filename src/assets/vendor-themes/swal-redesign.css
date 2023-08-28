@@ -1,0 +1,162 @@
+.redesign-swal-alert.swal2-header {
+    justify-content: space-between !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start;
+    padding: 0;
+    order: 1;
+}
+
+.redesign-swal-alert.swal2-actions {
+    justify-content: start !important;
+    margin: 1em 0 0 0  !important;
+    padding: 0 !important;
+    order: 4;
+}
+
+.redesign-swal-alert.swal2-icon .swal2-icon-content {
+    font-size: 2.75em;
+}
+
+.redesign-swal-alert.swal2-icon.swal2-warning  {
+    order: 2;
+    margin: 0 !important;
+    width: 2em !important;
+    height: 2em !important;
+    border-color: transparent  !important;
+}
+
+.redesign-swal-alert.swal2-icon.swal2-error  {
+    order: 2;
+    margin: 0 !important;
+    width: 2em !important;
+    height: 2em !important;
+    border-color: transparent  !important;
+}
+
+.redesign-swal-alert.swal2-icon.swal2-success  {
+    order: 2;
+    margin: 0 !important;
+    width: 2em !important;
+    height: 2em !important;
+    border-color: transparent  !important;
+}
+
+.redesign-swal-alert.swal2-icon.swal2-info  {
+    order: 2;
+    margin: 0 !important;
+    width: 2em !important;
+    height: 2em !important;
+    border-color: transparent  !important;
+}
+
+.redesign-swal-alert.swal2-icon.swal2-question  {
+    order: 2;
+    margin: 0 !important;
+    width: 2em !important;
+    height: 2em !important;
+    border-color: transparent;
+}
+
+.redesign-swal-alert.swal2-title {
+    order: 1;
+    font-size: 16px !important;
+}
+
+.redesign-swal-alert.swal2-icon.swal2-warning .swal2-icon-content {
+    font-size: 2em !important;
+}
+
+.redesign-swal-alert.swal2-content {
+    width: 85% !important;
+    padding: 0 !important;
+    text-align: start !important;
+    font-size: 13px !important;
+    order: 2;
+    line-height: 1em;
+}
+
+.redesign-swal-alert.swal2-radio {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    margin: 4px 0 4px 0!important;
+}
+
+.redesign-swal-alert.swal2-radio label {
+    margin: 5px 0 0 0 !important;
+    font-size: 12px;
+}
+
+.redesign-swal-alert.swal2-input-label {
+    font-weight: 500;
+    justify-content: start !important;
+}
+
+.redesign-swal-alert.swal2-radio input {
+    margin: 0.4em .4em 0 0 !important;
+}
+
+.redesign-swal-alert.swal2-styled.swal2-confirm {
+    margin: 0;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    padding: 0.25rem 0.5rem;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+}
+
+.redesign-swal-alert.swal2-styled.swal2-cancel {
+    margin: 0 5px;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    padding: 0.25rem 0.5rem;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 0.2rem;;
+}
+
+.redesign-swal-alert.swal2-validation-message {
+    margin: 20px 0 0 0 !important;
+    background: transparent !important;
+    padding: 0 0 !important;
+    justify-content: start;
+}
+
+.redesign-swal-alert.swal2-validation-message::before {
+    margin: 0 0.625em 0 0;
+}
+
+.mat-h2, .mat-title, .mat-typography h2 {
+    margin: 0 0 8px !important;
+}
+
+.swal2-popup {
+    width: 35em !important;
+}
+
+.swal2-footer {
+    order: 3;
+    margin: 0;
+    border-top: none;
+    justify-content: start;
+    color: #C23C2B !important;
+    padding: 1em 0 0 0;
+    font-size: 12px !important;
+    font-style: italic;
+}

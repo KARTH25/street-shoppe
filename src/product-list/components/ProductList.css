@@ -1,0 +1,16 @@
+.street_shoppe_categories{
+    min-width: inherit;
+    max-width: inherit;
+    overflow: scroll;
+}
+
+.productlist-background{
+    background-image: url('../../assets/categories-background.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-left: -10px;
+}
+
+.street_shoppe_categories,.street_shoppe_product_list::-webkit-scrollbar{
+    display: none;
+}

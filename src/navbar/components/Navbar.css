@@ -1,0 +1,26 @@
+.street_shoppe_navbar_sm{
+    min-height: 150px;
+    max-height: 150px;
+}
+
+.street_shoppe_navbar_lg{
+    min-height: 80px;
+    max-height: 80px;
+}
+
+.street_shoppe_navbar_primary{
+    background: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
+}
+
+.stree_shoppe_menu_icon,.stree_shoppe_brand_icon{
+    font-size: 30px;
+}
+
+.street_shoppe_link_text{
+    text-decoration: none;
+    color: black;
+}
+
+.street_shoppe_link_text:hover{
+    color: black;
+}
